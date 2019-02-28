@@ -2,7 +2,7 @@ import java.util.*;
 import java.io.*;
 public class Maze{
     private char[][]maze;
-    private boolean animate;//false by default
+    private boolean animate; //false by default
 
     /*Constructor loads a maze text file, and sets animate to false by default.
 
@@ -19,12 +19,34 @@ public class Maze{
 
     */
 
-    public Maze(String filename) throws FileNotFoundException{
+    public Maze(String filename) throws FileNotFoundException, IllegalStateException{
         //COMPLETE CONSTRUCTOR
         animate = false;
+        int eCount = 0;
+        int sCount = 0;
+        int row = 0;
+        int column = 0;
         try{
           File toRead = new File(filename);
           Scanner search = new Scanner(toRead);
+          while (search.hasNext()){
+            if ((String)(search.next()) == "E"){
+              eCount++;
+            }
+            if ((String)(search.next()) == "S"){
+              sCount++;
+            }
+            if (eCount != 1 || sCount != 1){
+              throw new IllegalStateException("Remember to only have one goal or one start in your maze!");
+            }
+            if (search.next() != "\n"){
+              column++;
+            }
+            if (search.next() == "\n"){
+              row++;
+            }
+          }
+          maze = new char[row][column]; //need to add actual dimensions
         }
         catch (FileNotFoundException e){
           System.out.println("Wrong file name!");
