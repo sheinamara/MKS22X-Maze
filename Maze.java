@@ -51,9 +51,7 @@ public class Maze{
         catch (FileNotFoundException e){
           System.out.println("Wrong file name!");
         }
-
     }
-
 
     private void wait(int millis){
          try {
@@ -63,13 +61,11 @@ public class Maze{
          }
      }
 
-
     public void setAnimate(boolean b){
 
         animate = b;
 
     }
-
 
     public void clearTerminal(){
 
@@ -79,12 +75,7 @@ public class Maze{
 
     }
 
-
-
-
-
-
-   /*Return the string that represents the maze.
+    /*Return the string that represents the maze.
 
      It should look like the text file with some characters replaced.
 
@@ -94,8 +85,6 @@ public class Maze{
             return "WRITE THIS METHOD";
 
     }
-
-
 
     /*Wrapper Solve Function returns the helper function
 
@@ -152,6 +141,4 @@ public class Maze{
 
         return -1; //so it compiles
     }
-
-
 }
