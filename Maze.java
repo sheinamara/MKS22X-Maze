@@ -46,7 +46,7 @@ public class Maze{
               row++;
             }
           }
-          maze = new char[row][column]; //need to add actual dimensions
+          maze = new char[row][column];
         }
         catch (FileNotFoundException e){
           System.out.println("Wrong file name!");
@@ -81,8 +81,12 @@ public class Maze{
 
     */
     public String toString(){
-
-            return "WRITE THIS METHOD";
+      String aMazing = "";
+      for (int x = 0; x < maze.length; x++){
+        for (int y = 0; y < maze[x].length; x++){
+          aMazing = aMazing + maze[x][y];
+        }
+      }
 
     }
 
