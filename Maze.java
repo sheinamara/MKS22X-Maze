@@ -1,8 +1,64 @@
 import java.util.*;
 import java.io.*;
 public class Maze{
-    private char[][]maze;
-    private boolean animate; //false by default
+  private char[][]maze;
+  private boolean animate; //false by default
+  private int row;
+  private int col;
+  private int[] moves;
+
+  public Maze(String filename) throws FileNotFoundException, IllegalStateException{
+    animate = false;
+    int eCount = 0;
+    int sCount = 0;
+
+    try{
+      File read = new File(filename);
+      Scanner toRow = new Scanner(read);
+      row = 0;
+      col = 0;
+      while (toRow.hasNextLine()){
+        row++;
+        toRow.nextLine();
+      }
+
+      Scanner toCol = new Scanner(read);
+      String s = toCol.nextLine();
+      for (int i = 0; i < s.length(); i++){
+        col++;
+      }
+
+      Scanner toCheck = new Scanner(read);
+      maze = new char[row][col];
+      for (int a = 0; toCheck.hasNextLine(); a++){
+        String line = toCheck.nextLine();
+        for (int b = 0; b < line.length(); b++){
+          if (line.charAt(b) == 'S'){
+            sCount++;
+          }
+          if (line.charAt(b) == 'E'){
+            eCount++;
+          }
+          maze[a][b] = line.charAt(b);
+        }
+      }
+      if (sCount != 1 || eCount != 1){
+        throw new IllegalStateException("You have more than one goal or one start!");
+      }
+    }
+
+    catch (FileNotFoundException e){
+      System.out.println("Wrong file!");
+    }
+  }
+
+  private void wait(int millis){
+    try {
+      Thread.sleep(millis);
+    }
+    catch (InterruptedException e) {
+    }
+  }
 
     /*Constructor loads a maze text file, and sets animate to false by default.
 
@@ -19,53 +75,16 @@ public class Maze{
 
     */
 
-    public Maze(String filename) throws FileNotFoundException, IllegalStateException{
-        //COMPLETE CONSTRUCTOR
-        animate = false;
-        int eCount = 0;
-        int sCount = 0;
-        int row = 0;
-        int column = 0;
-        try{
-          File toRead = new File(filename);
-          Scanner search = new Scanner(toRead);
-          while (search.hasNext()){
-            if ((String)(search.next()) == "E"){
-              eCount++;
-            }
-            if ((String)(search.next()) == "S"){
-              sCount++;
-            }
-            if (eCount != 1 || sCount != 1){
-              throw new IllegalStateException("Remember to only have one goal or one start in your maze!");
-            }
-            if (search.next() != "\n"){
-              column++;
-            }
-            if (search.next() == "\n"){
-              row++;
-            }
-          }
-          maze = new char[row][column];
-        }
-        catch (FileNotFoundException e){
-          System.out.println("Wrong file name!");
-        }
-    }
+      //COMPLETE CONSTRUCTOR
 
-    private void wait(int millis){
-         try {
-             Thread.sleep(millis);
-         }
-         catch (InterruptedException e) {
-         }
-     }
 
-    public void setAnimate(boolean b){
 
+
+
+
+     public void setAnimate(boolean b){
         animate = b;
-
-    }
+     }
 
     public void clearTerminal(){
 
@@ -83,11 +102,12 @@ public class Maze{
     public String toString(){
       String aMazing = "";
       for (int x = 0; x < maze.length; x++){
+        aMazing = aMazing + "\n";
         for (int y = 0; y < maze[x].length; x++){
           aMazing = aMazing + maze[x][y];
         }
       }
-
+      return aMazing;
     }
 
     /*Wrapper Solve Function returns the helper function
