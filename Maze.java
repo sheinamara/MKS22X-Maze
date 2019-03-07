@@ -13,6 +13,7 @@ public class Maze{
     int sCount = 0;
 
     try{
+      // getting the information on row
       File read = new File(filename);
       Scanner toRow = new Scanner(read);
       row = 0;
@@ -22,12 +23,14 @@ public class Maze{
         toRow.nextLine();
       }
 
+      // getting the information on col
       Scanner toCol = new Scanner(read);
       String s = toCol.nextLine();
       for (int i = 0; i < s.length(); i++){
         col++;
       }
 
+      // checking if there is only exactly one S and one E
       Scanner toCheck = new Scanner(read);
       maze = new char[row][col];
       for (int a = 0; toCheck.hasNextLine(); a++){
@@ -118,9 +121,20 @@ public class Maze{
       wait(20);
     }
 
-      //COMPLETE SOLVE
+    // if we are at the end of the maze, we have found a solution
+    if (maze[row][col] == 'E'){
+      return 1;
+    }
 
-      return -1; //so it compiles
+    // if we are not a valid location (walls or visited spots), return zero because it is invalid
+    if (maze[row][col] == '#' || maze[row][col] == '@' || maze[row][col] == '.'){
+      return 0;
+    }
+
+    // mark the location as a visited spot
+    maze[r][c] == '@';
+
+    return -1; // when maze has no solution
   }
 
     /*Constructor loads a maze text file, and sets animate to false by default.
