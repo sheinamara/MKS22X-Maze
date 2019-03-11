@@ -93,7 +93,7 @@ public class Maze{
         }
       }
     }
-    solve(r, c);
+    solve(r,c);
     return count();
   }
 
@@ -109,10 +109,12 @@ public class Maze{
       return 1;
     }
 
+    /*
     // if we are not a valid location (walls or visited spots), return zero because it is invalid
     if (maze[row][col] == '#' || maze[row][col] == '@' || maze[row][col] == '.'){
       return 0;
     }
+    */
 
     // empty spaces are valid
     if (maze[row][col] == ' '){
