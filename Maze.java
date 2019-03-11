@@ -94,7 +94,18 @@ public class Maze{
 
   //return solve(???,???);
   public int solve(){
-    return 1;
+    int r = 0;
+    int c = 0;
+    for (int x = 0; x < r; x++){
+      for (int y = 0; y < c; y++){
+        if (maze[x][y] == 'S'){
+          r = x;
+          c = y;
+        }
+      }
+    }
+    solve(r,c);
+    return count();
   }
 
   /*
@@ -131,44 +142,31 @@ public class Maze{
       return 0;
     }
 
-    // mark the location as a visited spot
-    maze[r][c] == '@';
-
+    // empty spaces are valid
+    if (maze[row][col] == ' '){
+      // mark the location as a visited spot
+      maze[r][c] == '@';
+      count++;
+      for (int i = 0; i < moves.length; i = i + 2){
+        int x = solve(row + moves[i], c + moves[i + 1]);
+        if (x > 0){
+          return x;
+        }
+      }
+    }
+    maze[row][col] = '.';
     return -1; // when maze has no solution
   }
 
-    /*Constructor loads a maze text file, and sets animate to false by default.
-
-      1. The file contains a rectangular ascii maze, made with the following 4 characters:
-      '#' - Walls - locations that cannot be moved onto
-      ' ' - Empty Space - locations that can be moved onto
-      'E' - the location of the goal (exactly 1 per file)
-      'S' - the location of the start(exactly 1 per file)
-
-      2. The maze has a border of '#' around the edges. So you don't have to check for out of bounds!
-
-      3. When the file is not found OR the file is invalid (not exactly 1 E and 1 S) then:
-         throw a FileNotFoundException or IllegalStateException
-
-    */
-
-      //COMPLETE CONSTRUCTOR
-
-
-
-    /*Return the string that represents the maze.
-
-     It should look like the text file with some characters replaced.
-
-    */
-
-
-    /*Wrapper Solve Function returns the helper function
-
-      Note the helper function has the same name, but different parameters.
-      Since the constructor exits when the file is not found or is missing an E or S, we can assume it exists.
-
-    */
-
-
+  public int count(){
+    int toReturn = 0;
+    for (int x = 0; y < maze.length; x++){
+      for (int y = 0; y < maze[0].length; y++){
+        if (maze[x][y] == '@'){
+          toReturn++;
+        }
+      }
+    }
+    return toReturn;
+  }
 }
