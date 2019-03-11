@@ -5,7 +5,6 @@ public class Maze{
   private boolean animate; //false by default
   private int row;
   private int col;
-  private int[] moves;
 
   public Maze(String filename) throws FileNotFoundException, IllegalStateException{
     animate = false;
@@ -75,7 +74,7 @@ public class Maze{
     String aMazing = "";
     for (int x = 0; x < maze.length; x++){
       aMazing = aMazing + "\n";
-      for (int y = 0; y < maze[x].length; x++){
+      for (int y = 0; y < maze[x].length; y++){
         aMazing = aMazing + maze[x][y];
       }
     }
@@ -85,11 +84,12 @@ public class Maze{
   public int solve(){
     int r = 0;
     int c = 0;
-    for (int x = 0; x < r; x++){
-      for (int y = 0; y < c; y++){
+    for (int x = 0; x < maze.length; x++){
+      for (int y = 0; y < maze[0].length; y++){
         if (maze[x][y] == 'S'){
           r = x;
           c = y;
+          maze[x][y] = ' ';
         }
       }
     }
@@ -98,6 +98,7 @@ public class Maze{
   }
 
   private int solve(int row, int col){ //you can add more parameters since this is private
+    int[] moves = {1, 0, -1, 0, 0, 1, 0, -1};
     if (animate){
       clearTerminal();
       System.out.println(this);
@@ -109,12 +110,10 @@ public class Maze{
       return 1;
     }
 
-    /*
     // if we are not a valid location (walls or visited spots), return zero because it is invalid
     if (maze[row][col] == '#' || maze[row][col] == '@' || maze[row][col] == '.'){
       return 0;
     }
-    */
 
     // empty spaces are valid
     if (maze[row][col] == ' '){
@@ -126,8 +125,8 @@ public class Maze{
           return x;
         }
       }
+      maze[row][col] = '.';
     }
-    maze[row][col] = '.';
     return -1; // when maze has no solution
   }
 
