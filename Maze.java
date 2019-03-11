@@ -82,17 +82,6 @@ public class Maze{
     return aMazing;
   }
 
-
-
-  //find the location of the S.
-
-
-  //erase the S
-
-
-  //and start solving at the location of the s.
-
-  //return solve(???,???);
   public int solve(){
     int r = 0;
     int c = 0;
@@ -104,27 +93,10 @@ public class Maze{
         }
       }
     }
-    solve(r,c);
+    solve(r, c);
     return count();
   }
 
-  /*
-    Recursive Solve function:
-
-    A solved maze has a path marked with '@' from S to E.
-
-    Returns the number of @ symbols from S to E when the maze is solved,
-    Returns -1 when the maze has no solution.
-
-
-    Postcondition:
-
-      The S is replaced with '@' but the 'E' is not.
-
-      All visited spots that were not part of the solution are changed to '.'
-
-      All visited spots that are part of the solution are changed to '@'
-  */
   private int solve(int row, int col){ //you can add more parameters since this is private
     if (animate){
       clearTerminal();
@@ -145,10 +117,9 @@ public class Maze{
     // empty spaces are valid
     if (maze[row][col] == ' '){
       // mark the location as a visited spot
-      maze[r][c] == '@';
-      count++;
+      maze[row][col] = '@';
       for (int i = 0; i < moves.length; i = i + 2){
-        int x = solve(row + moves[i], c + moves[i + 1]);
+        int x = solve(row + moves[i], col + moves[i + 1]);
         if (x > 0){
           return x;
         }
@@ -160,7 +131,7 @@ public class Maze{
 
   public int count(){
     int toReturn = 0;
-    for (int x = 0; y < maze.length; x++){
+    for (int x = 0; x < maze.length; x++){
       for (int y = 0; y < maze[0].length; y++){
         if (maze[x][y] == '@'){
           toReturn++;
